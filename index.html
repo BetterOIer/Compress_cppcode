@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="/site_logo_used.png">
+	<title>Compress Your C++ Code!</title>
+	<link rel="stylesheet" href="/assets/css/normalize.css">
+	<link rel="stylesheet" href="/assets/css/font-settings.css">
+	<script src="/js/ace.min.js"></script>
+	<script src="/js/ext-language_tools.min.js"></script>
+	<script src="/js/mode-c_cpp.min.js"></script>
+	<script src="/js/theme-monokai.min.js"></script>
+	<script src="/js/c_cpp.js"></script>
+	<script src="/js/compress.js"></script>
+	<script>
+		function setEditor() {
+			editor = ace.edit("code");
+			ace.config.set('basePath', '.');
+			editor.setTheme("ace/theme/monokai");
+			editor.session.setMode("ace/mode/c_cpp");
+			editor.setFontSize(18);
+			editor.setReadOnly(false);
+			editor.setOption("wrap", "free");
+			ace.require("ace/ext/language_tools");
+			editor.setOptions({
+				enableBasicAutocompletion: true,
+				enableSnippets: true,
+				enableLiveAutocompletion: true
+			});
+		}
+		window.onload = function() {
+			document.getElementById("compress").onclick = function () {
+				editor.session.setValue(compress(editor.getValue()));
+			};
+			setEditor();
+		};
+	</script>
+	<style type="text/css">
+		html {
+			font-size: 120%;
+		}
+
+		#code {
+			height: calc(100% - 2rem);
+			width: 100%;
+		}
+
+		#header {
+			height: 2rem;
+			width: 100%;
+			line-height: 2rem;
+			color: #ffe600;
+			text-align: center;
+			vertical-align: middle;
+			font-family: SYST;
+			background-color: #000000;
+		}
+
+		#header #compress {
+			padding-left: .5rem;
+			padding-right: .5rem;
+			height: 2rem;
+			transition: all .2s;
+		}
+
+		#header #compress:hover {
+			background-color: #5b5b5b;
+		}
+
+		#header #compress i {
+			font-size: 1.5rem;
+			width: 2rem;
+			margin-left: .3rem;
+			vertical-align: middle;
+		}
+
+		#header .intro {
+			width: 8rem;
+			transition: all .2s;
+			color: unset;
+		}
+
+		#header .intro:hover {
+			background-color: #5b5b5b;
+		}
+
+		#header .by {
+			padding-left: .5rem;
+			font-size: .9rem;
+			color: #999;
+			opacity: 0;
+			transition: all .2s;
+		}
+
+		#header .by a {
+			color: #888;
+			transition: all .2s;
+		}
+
+		#header .by a:hover {
+			color: #666;
+		}
+
+		#header:hover .by{
+			opacity: 1;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="header" class="fl no-select">
+		<a class="intro fl hand" href="">C++ 代码压行机</a>
+		<div id="compress" class="hand fr">压行!</div>
+	</div>
+	<pre id="code"></pre>
+</body>
+
+</html>
